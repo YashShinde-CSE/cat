@@ -4,7 +4,7 @@
 event_queue = []
 def add_event(event):
 	event_queue.append(event)
-	print(f"Event '{event} added to the queue.")
+	print(f"Event '{event}' added to the queue.")
 
 def process_next_event():
 	if event_queue:
@@ -15,7 +15,7 @@ def process_next_event():
 
 def display_pending_events():
 	if event_queue:
-		print("Print Events:")
+		print("Pending Events:")
 		for idx, event in enumerate(event_queue, 1):
 			print(f"{idx}.{event}")
 	else:
