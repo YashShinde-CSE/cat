@@ -12,7 +12,7 @@ def binary_search(account_list, target_id):
 		mid = (low + high) // 2
 		if account_list[mid] == target_id:
 			return mid
-		elif account_list[mid] > target_id:
+		elif account_list[mid] < target_id:
 			low = mid + 1
 		else:
 			high = mid - 1
