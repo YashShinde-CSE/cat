@@ -1,6 +1,6 @@
 class TextEditor:
 	def __init__(self):
-		self.document = " " # Current Document text
+		self.document = "" # Current Document text
 		self.undo_stack = [] # Stack for undo actions
 		self.redo_stack = [] # Stack for redo actions
 		
