@@ -36,6 +36,6 @@ else:
 sorted_ids = sorted(account_ids) # endsure list is sorted
 index_binary = binary_search(sorted_ids, target)
 if index_binary != -1:
-	print(f"Binary Search: Account ID {target} fount at index {index_binary} (sorted list).")
+	print(f"Binary Search: Account ID {target} found at index {index_binary} (sorted list).")
 else:
 	print("Binary Search: Account ID not found.")
