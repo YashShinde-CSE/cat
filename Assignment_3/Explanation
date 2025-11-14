@@ -1,0 +1,43 @@
+TEXTEDITOR PROGRAM – SHORT IMPORTANT EXPLANATION
+
+• TextEditor:
+  TextEditor is a class. A class is a blueprint used to create objects.
+  This class stores the document text and manages undo/redo operations.
+
+• __init__:
+  __init__ is the constructor of the class. It runs automatically when an object is created.
+  It initializes:
+      self.document   → stores current text
+      self.undo_stack → stores previous states for undo
+      self.redo_stack → stores undone states for redo
+
+• self:
+  self refers to the current object of the class.
+  It is used to access the object's variables (self.document, self.undo_stack, self.redo_stack) 
+  and methods. Without self, these variables would not belong to the object.
+
+• Objects:
+  When we write:
+      editor = TextEditor()
+  an object named ‘editor’ is created from the TextEditor class.
+  This object has its own document, undo stack, and redo stack.
+
+• make_change:
+  Saves the current document in undo_stack,
+  applies the new text change,
+  and clears redo_stack because new edits invalidate redo history.
+
+• undo_action:
+  Takes the last saved state from undo_stack and restores it.
+  The current state is moved to redo_stack so redo becomes possible.
+
+• redo_action:
+  Restores the last undone state from redo_stack.
+  The current state is moved back to undo_stack.
+
+• Stacks:
+  undo_stack and redo_stack behave as LIFO stacks (Last In, First Out) 
+  using list append() for push and pop() for pop.
+
+• Key Idea:
+  Undo and redo work by moving document states back and forth between two stacks.
