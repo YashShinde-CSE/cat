@@ -1,0 +1,41 @@
+SALARY SORTING PROGRAM – SHORT IMPORTANT EXPLANATION
+
+• salaries:
+  A list storing employee salary values (floats).
+
+• selection_sort:
+  - Finds the smallest element in the unsorted part of the list.
+  - Swaps it with the element at the current position.
+  - Repeats for all positions.
+  - Uses two loops: outer loop selects position, inner loop finds the minimum.
+  - Returns the sorted list.
+
+• bubble_sort:
+  - Compares each element with its next element.
+  - Swaps them if they are in the wrong order.
+  - Largest value "bubbles up" to the end in each pass.
+  - Repeats for all passes.
+  - Returns the sorted list.
+
+• salaries.copy():
+  Used so that the original salary list doesn’t get modified.
+  Sorting happens on a duplicate list.
+
+• sorted_salaries_selection[-5:][::-1]:
+  - [-5:] takes the last 5 elements (top 5 salaries after sorting).
+  - [::-1] reverses the list to display them in descending order.
+
+• Time Complexity:
+  - Selection Sort: O(n²)
+  - Bubble Sort: O(n²)
+  (both have nested loops)
+
+• Space Complexity:
+  - Both use O(1) extra space (in-place sorting).
+
+• Swap in Python:
+  salary_list[i], salary_list[min_index] = salary_list[min_index], salary_list[i]
+  Python allows swapping without a temp variable using tuple unpacking.
+
+• Overall Purpose:
+  Sort the salary list using two algorithms and print the top 5 highest salaries.
