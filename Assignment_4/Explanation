@@ -1,0 +1,75 @@
+ChatGPT said:
+
+Here is the line-by-line explanation of the Real-Time Event Processing System using Queue — short, clear, and perfect for viva or pasting in Notepad.
+
+REAL-TIME EVENT PROCESSING SYSTEM – LINE BY LINE EXPLANATION
+------------------------------------------------------------
+
+# Using simple list as a queue 
+event_queue = []
+
+
+• A list named event_queue is created.
+• This list will act as a queue (FIFO → First In, First Out).
+• New events go at the end, processed events come from the front.
+
+def add_event(event):
+event_queue.append(event)
+print(f"Event '{event}' added to the queue.")
+
+• Function to add a new event.
+• append(event) → adds the event to the end of the queue.
+• A message is printed confirming the addition.
+
+def process_next_event():
+if event_queue:
+event = event_queue.pop(0)
+print(f"Processed event: '{event}'")
+else:
+print("No events to process.")
+
+• Function to process (handle) the next event.
+• First checks if queue is not empty.
+• pop(0) → removes the FIRST event (index 0), ensuring FIFO behavior.
+• If queue is empty, prints "No events to process."
+
+def display_pending_events():
+if event_queue:
+print("Pending Events:")
+for idx, event in enumerate(event_queue, 1):
+print(f"{idx}.{event}")
+else:
+print("No pending events.")
+
+• Function to display all current events waiting in queue.
+• enumerate(event_queue, 1) → gives index starting from 1.
+• Prints each event in order.
+• If queue empty → shows “No pending events.”
+
+def cancel_event(event_name):
+if event_name in event_queue:
+event_queue.remove(event_name)
+print(f"Event '{event_name}' has been canceled.")
+else:
+print(f"Event '{event_name}' not found or already processed.")
+
+• Function to cancel/remove a specific event.
+• Checks if event name exists in queue.
+• remove(event_name) → deletes the first matching event.
+• If event isn't found → prints appropriate message.
+
+def menu():
+while True:
+print("\n---EVENT MENU---")
+print("1.Add Event")
+print("2.Process Next Event")
+print("3.Display Pending Events")
+print("4.Cancel an Event")
+print("5.Exit")
+
+	choice = input("Enter your choice:")
+
+
+• menu() controls the main user interface through an infinite loop.
+• Displays a menu of options each time the loop runs.
+• input() reads user choice as a string.
