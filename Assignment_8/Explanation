@@ -1,0 +1,153 @@
+⭐ DIJKSTRA’S ALGORITHM PROGRAM — DETAILED EXPLANATION
+1) Import heapq
+import heapq
+
+
+heapq is a Python module that provides priority queue functionality.
+
+Priority queue automatically pops the smallest (minimum) value first.
+
+Used here to always pick the shortest-time (minimum distance) node.
+
+2) Graph Representation
+graph = {
+    'Shop': [('A', 4), ('B', 2)],
+    'A': [('Shop', 4), ('C', 3), ('D', 2)],
+    'B': [('Shop', 2), ('D', 4)],
+    'C': [('A', 3), ('D', 1), ('E', 5)],
+    'D': [('A', 2), ('B', 4), ('C', 1), ('E', 3)],
+    'E': [('C', 5), ('D', 3)]
+}
+
+Meaning:
+
+Graph is stored as adjacency list.
+
+Each key is a location (node).
+
+Each value is a list of (neighbor, travel_time).
+
+Example:
+
+'Shop': [('A', 4), ('B', 2)]
+Means:
+
+Shop → A takes 4 mins
+
+Shop → B takes 2 mins
+
+⭐ DIJKSTRA FUNCTION
+3) Initialize distances
+distances = {}
+for node in graph:
+    distances[node] = float('inf')
+distances[start] = 0
+
+
+We create a dictionary to store the minimum travel time from the start to each location.
+
+Initially:
+
+Every distance = infinity
+
+Distance to the start node = 0 (because start to start = 0)
+
+4) Priority Queue Initialization
+pq = [(0, start)]
+
+
+Priority queue contains (time, node).
+
+Initially: (0, start_location) → Shop
+
+Meaning: we start exploring from Shop with time 0.
+
+5) Main Loop
+while pq:
+    current_time, node = heapq.heappop(pq)
+
+
+Pop the node with the smallest travel time.
+
+Dijkstra always processes the nearest unprocessed node first.
+
+6) Skip outdated entries
+if current_time > distances[node]:
+    continue
+
+
+If we find an old entry (longer time) → ignore it.
+
+Ensures efficiency.
+
+7) Relax all edges
+for neighbor, time in graph[node]:
+    new_time = current_time + time
+
+
+For every neighbor of the current node:
+
+Calculate new possible travel time.
+
+Check if new path is shorter:
+if new_time < distances[neighbor]:
+    distances[neighbor] = new_time
+    heapq.heappush(pq, (new_time, neighbor))
+
+
+If shorter path found:
+
+Update shortest distance
+
+Push neighbor into priority queue to process later
+
+8) Return final shortest distances
+return distances
+
+⭐ Execution
+start_location = 'Shop'
+result = dijkstra(graph, start_location)
+
+
+Find shortest delivery times from Shop to every location.
+
+⭐ Printing Output
+Shop: 0 mins
+A: X mins
+B: Y mins
+...
+
+⭐ VIVA SUMMARY (copy-paste)
+• The program implements Dijkstra’s algorithm.
+• Graph is stored as adjacency list with (neighbor, time).
+• distances[] stores the shortest known distance from start node.
+• Initially all distances = infinity, start = 0.
+• A priority queue (heapq) picks the smallest travel time node first.
+• For each neighbor, new_time = current_time + edge_weight.
+• If new_time < old_value → update distance and push to heap.
+• Finally, distances dict contains minimum delivery times to all nodes.
+
+⭐ IMPORTANT CONCEPTS (You MUST know)
+✔ What is Dijkstra’s Algorithm?
+
+A shortest path algorithm.
+
+Works on graphs with positive weights.
+
+Finds minimum distance from source to all nodes.
+
+✔ Why use Priority Queue?
+
+To always pick the next node with the smallest distance.
+
+✔ Time Complexity
+
+O(E log V) using priority queue.
+
+✔ Real-Life Use
+
+Google Maps shortest path
+
+Delivery routing systems
+
+Networking (packet routing)
