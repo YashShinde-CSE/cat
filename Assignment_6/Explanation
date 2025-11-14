@@ -1,0 +1,216 @@
+⭐ DETAILED EXPLANATION — HASH TABLE WITH LINEAR PROBING
+✅ 1) What is this Hash Table implementation?
+
+This version uses:
+
+Open Addressing + Linear Probing
+
+No lists inside buckets
+
+One big array where each slot holds one key
+
+If a slot is taken → move to next slot (linear probing)
+
+⭐ 2) Constructor
+def __init__(self, size=10):
+    self.size = size
+    self.table = [None] * size
+
+
+Initializes hash table with size 10 (default)
+
+Creates an array like:
+
+[None, None, None, None, None, None, None, None, None, None]
+
+
+None means empty slot
+
+No chaining here — each index stores one key only
+
+⭐ 3) Hash Function
+def hash_function(self, key):
+    return key % self.size
+
+
+Same logic:
+
+Converts a key into a valid index (0 to 9)
+
+Example:
+key = 15 → 15 % 10 = 5 → goes to index 5
+
+⭐ 4) Insert Operation (Linear Probing)
+def insert(self, key):
+    index = self.hash_function(key)
+    start_index = index
+
+
+Compute initial index
+
+Keep this index as start_index to detect full table
+
+Collision Handling (Linear Probing)
+while self.table[index] is not None and self.table[index] != "DELETED":
+
+
+Meaning:
+
+If the slot is full, move to next slot:
+
+index = (index + 1) % self.size
+
+
+(index + 1) % size ensures wrap-around when reaching end of table
+
+Check Full Table
+if index == start_index:
+    print("Hash table is full!")
+    return
+
+Insert key when an empty / deleted spot is found:
+self.table[index] = key
+
+Example:
+
+Insert 5 → goes to index 5
+Insert 15:
+
+15 % 10 = 5 (collision with 5)
+
+Move to index 6 → insert there
+Insert 25:
+
+25 % 10 = 5 (collision)
+
+Check 6 (collision)
+
+Move to 7 → insert
+
+⭐ 5) Search Operation
+def search(self, key):
+    index = self.hash_function(key)
+    start_index = index
+
+Probe until:
+
+slot is empty → key doesn’t exist
+
+key is found → return index
+
+loop returns to start_index → key not found
+
+Works same as insert probing loop.
+
+⭐ 6) Delete Operation
+index = self.search(key)
+if index is not None:
+    self.table[index] = "DELETED"
+
+Why store "DELETED"?
+
+If you put None, probing breaks prematurely.
+
+Example:
+
+Suppose 5 → index 5
+
+15 → index 6
+
+If 5 is deleted, and we make slot None, search for 15 stops early.
+
+Using "DELETED" allows probing to continue.
+
+⭐ 7) Display Function
+for i in range(self.size):
+    print(f"Index {i}: {self.table[i]}")
+
+
+Shows the entire hash table with indexes:
+
+None → empty slot
+
+key → stored key
+
+"DELETED" → deleted slot
+
+⭐ 8) Example Execution (What Happens)
+Insert(5)
+
+Index 5 → empty → place at 5
+
+Insert(15)
+
+15 % 10 = 5 → collision with 5
+Move to 6 → insert at 6
+
+Insert(25)
+
+25 % 10 = 5 → collision
+6 → collision
+7 → empty → insert at 7
+
+Insert(7)
+
+7 % 10 = 7 → empty → insert at 7
+(BUT 7 already taken → next 8)
+
+⭐ Search(15)
+
+Check index 5 → not 15
+
+Check index 6 → found!
+
+⭐ Delete(15)
+
+Replace index 6 with "DELETED"
+
+⭐ Insert(35)
+
+35 % 10 = 5
+
+probe → 6 (“DELETED”) → insert here
+This shows why "DELETED" is needed.
+
+⭐ Important Viva Concepts
+✔ Hash Table Type
+
+This is open addressing with linear probing.
+
+✔ Collision handling?
+
+Linear probing (move to next slot until empty).
+
+✔ Why not FIFO/LIFO?
+
+Hash table is neither FIFO nor LIFO.
+
+✔ What is “DELETED”?
+
+Special marker that allows probing to continue even after deletion.
+
+✔ Time Complexity
+
+Insert → O(1) average
+
+Search → O(1) average
+
+Delete → O(1) average
+
+Worst case → O(n)
+
+✔ Difference from Chaining
+
+Chaining uses lists inside buckets
+
+Linear probing uses ONE array and checks next slot on collision
+
+⭐ Short Summary (Paste in Notepad)
+This hash table uses open addressing and linear probing.
+Table is a list of size 10 initialized with None.
+Hash function is key % size.
+Insert uses linear probing to find next empty or deleted slot.
+Search probes sequentially until key is found or empty slot reached.
+Delete marks slot as "DELETED" to keep probing chain intact.
+Linear probing handles collisions by checking next slots.
+This is different from separate chaining which uses a list of lists.
