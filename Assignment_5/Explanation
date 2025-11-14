@@ -1,0 +1,249 @@
+⭐ DETAILED EXPLANATION OF HASH TABLE PROGRAM
+1) What is a Hash Table?
+
+A Hash Table is a data structure that stores data as key–value pairs.
+It uses a hash function to convert a key into an index, where the value is stored.
+
+Why hash tables?
+
+Very fast searching, insertion, deletion
+
+Average time complexity: O(1)
+
+Used in dictionaries, databases, caches, symbol tables
+
+2) Class Definition
+class HashTable:
+
+
+Defines a class named HashTable.
+
+This class will contain:
+
+the hash table structure
+
+insert, search, delete methods
+
+display function
+
+3) Constructor
+def __init__(self, size=10):
+    self.size = size
+    self.table = [[] for _ in range(size)]
+
+Meaning:
+
+__init__ is the constructor, runs when we create a HashTable object.
+
+size=10 → default table size = 10 buckets.
+
+self.table creates a list containing 10 empty lists:
+
+Example:
+
+[
+  [], [], [], [], [], [], [], [], [], []
+]
+
+Why empty lists?
+
+Each list acts as a bucket.
+
+If two keys hash to the same index, they are stored together in that bucket.
+
+This method is called separate chaining (collision handling).
+
+4) Hash Function
+def _hash_function(self, key):
+    return key % self.size
+
+Meaning:
+
+Takes a numeric key.
+
+Returns key % size → remainder after division.
+
+This ensures the index is always between 0 and size-1.
+
+Example:
+size = 10
+key = 15
+15 % 10 = 5
+This means key 15 will be stored in bucket index 5.
+
+5) Insert Operation
+def insert(self, key, value):
+    index = self._hash_function(key)
+
+
+Finds the bucket index using the hash function.
+
+Check if key already exists:
+for pair in self.table[index]:
+    if pair[0] == key:
+        pair[1] = value
+        print(f"Updated key {key} with value {value}")
+        return
+
+
+Each bucket contains [key, value] pairs.
+
+If the same key already exists, update its value.
+
+If key does NOT exist:
+self.table[index].append([key, value])
+print(f"Inserted key {key} with value {value}")
+
+
+Add a new key–value pair to the bucket.
+
+If another key already exists in this bucket → collision occurred, but handled using chaining (append into same bucket list).
+
+6) Search Operation
+def search(self, key):
+    index = self._hash_function(key)
+    for pair in self.table[index]:
+        if pair[0] == key:
+            return pair[1]
+    return None
+
+Meaning:
+
+Computes bucket index.
+
+Searches every pair inside that bucket.
+
+If found → return the associated value.
+
+If not found → return None.
+
+Why search in bucket?
+
+Because multiple keys may map to same bucket → collisions.
+
+7) Delete Operation
+def delete(self, key):
+    index = self._hash_function(key)
+    for i, pair in enumerate(self.table[index]):
+        if pair[0] == key:
+            del self.table[index][i]
+            print(f"Deleted key {key}")
+            return
+    print(f"Key {key} not found for deletion.")
+
+Meaning:
+
+Computes bucket index.
+
+Loops through the bucket and checks each key.
+
+If key is found:
+
+del removes that pair from the bucket.
+
+If not found:
+
+Prints a message.
+
+8) Display Function
+def display(self):
+    print("Hash Table:")
+    for i, bucket in enumerate(self.table):
+        print(f"Index {i}: {bucket}")
+
+Meaning:
+
+Shows each bucket and its key–value pairs.
+
+Helps visualize collisions and structure.
+
+9) Usage Example
+ht = HashTable()
+
+ht.insert(15, "apple")
+ht.insert(25, "banana")  # Collision with 15
+ht.insert(35, "cherry")  # Collision again
+
+Explanation of collisions:
+
+15 % 10 = 5
+
+25 % 10 = 5
+
+35 % 10 = 5
+
+So all these keys go into bucket index 5.
+
+Bucket 5 becomes:
+
+[
+  [15, "apple"],
+  [25, "banana"],
+  [35, "cherry"]
+]
+
+10) Search Example
+ht.search(25)
+
+
+Goes to bucket 5.
+
+Finds key 25.
+
+Returns "banana".
+
+11) Delete Example
+ht.delete(25)
+
+
+Removes [25, "banana"] from bucket 5.
+
+After deletion:
+
+[
+  [15, "apple"],
+  [35, "cherry"]
+]
+
+12) Display Final Table
+ht.display()
+
+
+Shows all buckets and key–value pairs after operations.
+
+⭐ IMPORTANT CONCEPTS (Viva)
+✔ What is hashing?
+
+The process of converting a key into an index.
+
+✔ What is a hash function?
+
+A function that generates a valid index for the table.
+Here → key % size.
+
+✔ What is a collision?
+
+When two keys generate the same index.
+
+✔ How are collisions handled here?
+
+Using separate chaining → store multiple pairs inside the same bucket (list).
+
+✔ Time Complexity:
+
+Insert → O(1) average
+
+Search → O(1) average
+
+Delete → O(1) average
+
+Worst case (all keys in same bucket) → O(n)
+
+⭐ Short Viva-Ready Summary
+This program implements a hash table using separate chaining.
+The table is a list of buckets, each bucket is a list.
+The hash function uses key % size.
+Insert adds a new key–value pair or updates an existing one.
+Search looks through the correct bucket to find a key.
+Delete removes the key from its bucket.
+Chaining handles collisions by storing multiple pairs in one bucket.
