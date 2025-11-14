@@ -1,0 +1,297 @@
+⭐ GRAPH TRAVERSAL PROGRAM — DETAILED EXPLANATION
+✅ 1) Adjacency Matrix
+matrix = [ 
+    [0, 1, 1, 0, 0],   
+    [1, 0, 0, 1, 0],  
+    [1, 0, 0, 1, 1],   
+    [0, 1, 1, 0, 1],  
+    [0, 0, 1, 1, 0]   
+]
+
+
+This is a 5×5 adjacency matrix.
+
+Row and column represent nodes: A, B, C, D, E
+
+1 = there is an edge
+
+0 = no edge
+
+Example:
+Row 0 → [0,1,1,0,0]
+Means A is connected to B and C.
+
+✅ 2) Node Names
+nodes = ['A', 'B', 'C', 'D', 'E']
+
+
+Used for printing the correct node letter during DFS.
+
+⭐ DFS (Depth First Search)
+Definition:
+
+DFS goes deep first, moving to the next unvisited neighbor before backtracking.
+
+✅ 3) DFS Function
+def dfs(matrix, start, visited=None):
+
+
+matrix → adjacency matrix
+
+start → starting node index (0 = A)
+
+visited → keeps track of visited nodes
+
+When visited is None:
+if visited is None:
+    visited = set()
+
+
+Creates an empty set to track visited nodes.
+
+Processing current node:
+print(nodes[start], end=' ')
+visited.add(start)
+
+
+Print node (A, B, C...) and mark it as visited.
+
+Visiting neighbors:
+for i in range(len(matrix[start])):
+    if matrix[start][i] == 1 and i not in visited:
+        dfs(matrix, i, visited)
+
+
+Meaning:
+
+Loop through row of matrix
+
+If value = 1 → neighbor exists
+
+If not visited → call DFS on that neighbor (recursive call)
+
+⭐ DFS Output
+
+Starting at A (index 0):
+
+DFS Traversal: A B D C E
+
+
+(depends on matrix order)
+
+⭐ 4) Adjacency List (for BFS)
+graph = { 
+    'A': ['B', 'C'], 
+    'B': ['A', 'D'], 
+    'C': ['A', 'D', 'E'], 
+    'D': ['B', 'C', 'E'], 
+    'E': ['C', 'D'] 
+}
+
+
+Another representation of same graph.
+
+Each node has a list of neighbors.
+
+BFS works better with adjacency lists.
+
+⭐ BFS (Breadth First Search)
+Definition:
+
+BFS visits nodes level by level, using a queue (FIFO).
+
+✅ 5) BFS Function
+def bfs(graph, start):
+    visited = set()
+    queue = [start]
+    visited.add(start)
+
+
+visited keeps track of visited nodes.
+
+queue is used for BFS → FIFO.
+
+BFS Loop:
+while queue:
+    current = queue.pop(0)
+    print(current, end=' ')
+
+
+pop(0) removes first element → FIFO behavior
+
+print the current node
+
+Adding neighbors to queue:
+for neighbor in graph[current]:
+    if neighbor not in visited:
+        visited.add(neighbor)
+        queue.append(neighbor)
+
+
+For each neighbor:
+
+If not visited → add to visited + queue
+
+⭐ BFS Output
+
+Starting from A:
+
+A B C D E
+
+⭐ SUMMARY FOR VIVA (paste this)
+DFS:
+- Uses recursion.
+- Goes deep into one path before backtracking.
+- Uses: recursion + visited set.
+- Based on stack behavior (LIFO).
+
+BFS:
+- Uses a queue.
+- Visits nodes level by level.
+- Uses: queue + visited set.
+- Based on FIFO behavior.
+
+Adjacency Matrix:
+- 2D matrix showing connections with 0s and 1s.
+
+Adjacency List:
+- Dictionary of lists, each showing neighbors of a node.
+
+DFS → implemented using adjacency matrix.
+BFS → implemented using adjacency list.
+
+
+
+
+⭐ WHAT IS DFS? (Depth First Search)
+DFS = Depth-First Search
+
+DFS explores a graph deeply first before coming back.
+
+Simple meaning:
+
+DFS goes as far as possible in one direction, then backtracks and explores the next direction.
+
+Example (real life):
+
+Imagine exploring a maze:
+
+You walk straight into a path until you reach a dead-end
+
+Then you come back (backtrack)
+
+Then try another path
+This is DFS.
+
+How DFS works conceptually:
+
+Uses Stack behavior (LIFO)
+
+Goes deep → deep → deep
+
+Comes back when no further nodes
+
+Used in:
+
+Solving puzzles (mazes, Sudoku)
+
+Detecting cycles in graphs
+
+Topological sorting
+
+Path finding
+
+⭐ WHAT IS BFS? (Breadth First Search)
+BFS = Breadth-First Search
+
+BFS explores a graph level by level, layer by layer.
+
+Simple meaning:
+
+BFS visits all immediate neighbors first,
+then their neighbors,
+then next level…
+
+Example (real life):
+
+Imagine water spreading from a point in all directions equally —
+that is BFS.
+
+How BFS works conceptually:
+
+Uses Queue behavior (FIFO)
+
+Visit node → add neighbors → process them in order
+
+Used in:
+
+Finding shortest path in an unweighted graph
+
+GPS navigation
+
+Social media friend suggestions
+
+Network broadcasting
+
+⭐ BASIC DIFFERENCE (super simple)
+DFS → Deep first      (uses stack)
+BFS → Level-wise      (uses queue)
+
+⭐ 10-SECOND VIVA ANSWERS (must memorize)
+✔ What is DFS?
+
+❝
+DFS is Depth First Search. It goes deep into one path first, then backtracks.
+It uses recursion or a stack.
+❞
+
+✔ What is BFS?
+
+❝
+BFS is Breadth First Search. It visits all nodes level by level.
+It uses a queue (FIFO).
+❞
+
+✔ Which one gives shortest path?
+
+❝
+BFS gives shortest path in an unweighted graph.
+❞
+
+✔ How does DFS work?
+
+❝
+DFS keeps going deep until it cannot go further, then backtracks.
+❞
+
+✔ How does BFS work?
+
+❝
+BFS visits all immediate neighbors first, then moves to the next level.
+❞
+
+⭐ SIMPLE VISUAL DIFFERENCE
+
+Starting from A:
+
+    A
+   / \
+  B   C
+ / \   \
+D   E   F
+
+DFS order → A B D E C F
+
+(Go deep first)
+
+BFS order → A B C D E F
+
+(Level by level)
+
+If you want, I can also give:
+
+a diagram of DFS tree,
+
+a graph drawing for your matrix/list,
+
+or the most expected viva questions on DFS/BFS.
