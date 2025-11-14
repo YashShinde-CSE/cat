@@ -1,0 +1,72 @@
+LINEAR & BINARY SEARCH PROGRAM – SHORT IMPORTANT EXPLANATION
+
+• account_ids:
+  A list containing customer account ID numbers.
+
+--------------------------------------
+1) linear_search(account_list, target_id)
+--------------------------------------
+• Uses a simple loop to check each element one by one.
+• enumerate() gives both index and value.
+• If the value matches the target, return the index.
+• If not found, return -1.
+• Time Complexity: O(n)
+• Space Complexity: O(1)
+
+--------------------------------------
+2) binary_search(account_list, target_id)
+--------------------------------------
+• Requires the list to be sorted.
+• Uses low, high, and mid pointers.
+• mid = (low + high) // 2 → integer division.
+• If mid element is target → return index.
+• If target > mid element → search right half.
+• If target < mid element → search left half.
+• If not found, return -1.
+• Time Complexity: O(log n)
+• Space Complexity: O(1)
+
+--------------------------------------
+3) sorted_ids = sorted(account_ids)
+--------------------------------------
+• sorted() is a built-in function.
+• Returns a new sorted list; original list remains unchanged.
+• Required because binary search only works on sorted lists.
+
+--------------------------------------
+4) Searching
+--------------------------------------
+• First perform Linear Search on original list.
+• Then perform Binary Search on the sorted list.
+• Based on result (index ≠ -1), print “Found” or “Not Found”.
+
+--------------------------------------
+5) Differences between Linear and Binary Search
+--------------------------------------
+• Linear Search:
+    - Works on unsorted list.
+    - Slow for large lists (O(n)).
+
+• Binary Search:
+    - Works only on sorted list.
+    - Much faster (O(log n)).
+
+--------------------------------------
+6) -1 Meaning
+--------------------------------------
+• Returning -1 means the element is not present in the list.
+
+--------------------------------------
+7) Important Keywords
+--------------------------------------
+• enumerate() → gives index and value together.
+• // → floor division (returns whole number index).
+• len() → returns list length.
+• sorted() → built-in function to sort list.
+• return → exits function and sends result back.
+
+--------------------------------------
+8) Program Purpose
+--------------------------------------
+• To search for a customer account ID using both linear and binary search
+  and display the result.
