@@ -42,7 +42,7 @@ else:
 print("No pending events.")
 
 • Function to display all current events waiting in queue.
-• enumerate(event_queue, 1) → gives index starting from 1.
+• enumerate(event_queue, 1) → gives index starting from 1 instead of 0.
 • Prints each event in order.
 • If queue empty → shows “No pending events.”
 
@@ -51,7 +51,7 @@ if event_name in event_queue:
 event_queue.remove(event_name)
 print(f"Event '{event_name}' has been canceled.")
 else:
-print(f"Event '{event_name}' not found or already processed.")
+print(f"Event '{event_name}' not found or already processed."
 
 • Function to cancel/remove a specific event.
 • Checks if event name exists in queue.
